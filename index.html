@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        #walletAddress {
+            width: 30%;
+            height: 5%;}
+        #myProgress {
+            width: 50%;
+            background-color: #ddd;
+        }
+
+        #myBar {
+            width: 0%;
+            height: 30px;
+            background-color: #4CAF50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="center">
+    <h1>進行状況バー</h1>
+
+    <input type="text" id="walletAddress" placeholder="ウォレットアドレスを入力" onkeydown="if (event.keyCode == 13) document.getElementById('btn').click()"><br>
+
+    <div id="myProgress">
+        <div id="myBar">0%</div>
+    </div>
+
+    <br>
+    <button id="btn" onclick="onButtonClick()">クリック</button>
+</div>
+
+<script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="text/javascript"></script>
+
+
+<script>
+var isMoving = false;
+
+function move() {
+    if (isMoving) return;
+    isMoving = true;
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 1000);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+            isMoving = false;
+        } else {
+            width++;
+            elem.style.width = width + '%';
+            elem.innerHTML = width * 1  + '%';
+        }
+    }
+}
+function onButtonClick() {
+    move();
+}
+</script>
+
+</body>
+</html>
